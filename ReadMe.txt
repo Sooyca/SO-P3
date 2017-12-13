@@ -1,0 +1,1 @@
+Prosty system plików wykorzystujący bibliotekę LibDisk do symulowania dysku. Oparty na projekcie opisanym na stronie  http://pages.cs.wisc.edu/~dusseau/Classes/CS537-F07/Projects/P4/ . Zaimplementowany zostanie również prosty intrefejs tekstowy to interakcji z systemem.
