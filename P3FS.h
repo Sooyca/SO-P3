@@ -1,3 +1,5 @@
 #include<stdio.h>
 
-int correctness()
+int correctness(char *sector);
+
+int loadDir(char *sector);
