@@ -1,0 +1,4 @@
+Kod źródłowy napisany na pracownię znajduje się w plikach P3FS.c(h) oraz P3console.c(h)
+W P3console zimplementowany będzie tekstowy interfejs do interakcji użytkownika z systemem. Przewidziane funkcje (zgodnie z konwencją systemu Linux) to: ls, cd, mkdir, rmdir, mv, cp, rm. Będzie również zaimplementowana funkcja "open" interpretująca pliki jako tekstowe.
+W P3FS zaimplementowany zostanie faktyczny system plików przetwarzający dane z symulowanego dysku.
+Program korzysta z biblioteki LibDisk (załączonej w repozytorium) do symulowania dysku.
