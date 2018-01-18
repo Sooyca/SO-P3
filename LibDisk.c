@@ -19,7 +19,7 @@ Disk_Error_t diskErrno;
  * THIS FUNCTION MUST BE CALLED BEFORE ANY OTHER FUNCTION IN HERE CAN BE USED!
  *
  */
-int Disk_Init()
+int Disk_Init(int *size)
 {
     // create the disk image and fill every sector with zeroes
     disk = (Sector *) calloc(NUM_SECTORS, sizeof(Sector));
@@ -27,6 +27,7 @@ int Disk_Init()
 	diskErrno = E_MEM_OP;
 	return -1;
     }
+    *size = NUM_SECTORS;
     return 0;
 }
 

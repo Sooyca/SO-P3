@@ -13,9 +13,10 @@ int main(int argc, char *argv[])
 	char answerString[16];
 	char diskName[16];
 	char sectorBuffer[SECTOR_SIZE];
+	int SN;
+	int y;
 	if(argc == 1)
 	{	
-		int y;
 		for(y = 0; y < SECTOR_SIZE; y++)
 		{
 			sectorBuffer[y] = (char) 0;
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
 			printf("\nEnter the name, it can't be longer than 16 characters.\n");
 			scanf("%s", answerString);
 			strcpy(diskName, answerString);
-			Disk_Init();
+			Disk_Init(&SN);
 			strcpy(sectorBuffer, "A mount point");
 			Disk_Write(0, sectorBuffer);
 			for(y = 0; y < SECTOR_SIZE; y++)
@@ -52,12 +53,13 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		Disk_Init();
+		Disk_Init(SN);
 		strcpy(diskName, argv[1]);
 		Disk_Load(diskName);
 	}
 	
 	char buffer[MAX_FILE_SIZE][SECTOR_SIZE];
+	char operationbuffer[SECTOR_SIZE];
 	
 	Disk_Read(0, buffer[0]);
 	if(correctness(buffer[0]) != 1)
@@ -67,7 +69,11 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	
-	Disk_Read(41, buffer[0]);
+	int fqueue[SN];
+	
+	for(y = 0; 
+	
+	Disk_Read(SN/(SECTOR_SIZE/2)+2, buffer[0]);
 	
 	int t;
 	int i = 0;
@@ -98,6 +104,8 @@ int main(int argc, char *argv[])
 	char object2[16];
 	int commandNumber = 16;
 	int quitv = 0;
+	int FN = 0;
+	int firstFree;
 	while(quitv == 0)
 	{
 		quitv = quit(command);
@@ -113,7 +121,22 @@ int main(int argc, char *argv[])
 				printf("\n%s >>> ", path);
 				break;
 			case 2:			//mkdir
-				
+				FN = currentDir.numberOfFiles;
+				vfirst_free = first_free(fqueue);
+				if(FN < 256 && firstFree< SN)
+				{
+					strcpy(currentDir.files[FN], object1);
+					currentDir.filesTypes[FN] = 'D';
+					currentDir.sectors[FN] = firstFree;
+					use_first_free(fqueue);
+					strcpy(operationbuffer, object1);
+					Disk_Write(vfirst_free, operationbuffer);
+					currentDir.numberOfFiles ++;
+				}
+				if(FN >= 256)
+					printf("To many files in this directory.\n");
+				if(vfirst_free >= SN)
+					printf("Disk is full, cannot add a directory.\n");
 				break;
 			case 3:			//rmdir
 		

@@ -8,7 +8,9 @@
 typedef struct directory{
 	char name[16];
 	char files[256][16];
+	char filesTypes[256];
 	int sectors[256];     //i-th file first sector is i-th sector
+	int numberOfFiles = 0;
 	
 } Directory;
 
