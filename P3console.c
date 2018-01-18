@@ -1,6 +1,5 @@
 #include"P3console.h"
 #include"LibDisk.h"
-#include"P3FS.h"
 
 
 
@@ -93,76 +92,115 @@ int main(int argc, char *argv[])
 	
 	printf("%s >>> ", path);
 	
-	char command[32];
+	char command[64];
 	char subcommand[16];
-	char object[16];
-	while(quit(command) == 0)
+	char object1[16];
+	char object2[16];
+	int commandNumber = 16;
+	int quitv = 0;
+	while(quitv == 0)
 	{
-		scanf("%s", command);
-		extract_command(subcommand, command, object);
-		switch(command)
+		quitv = quit(command);
+		commandNumber = extract_command(subcommand, command, object1, object2);
+		switch(commandNumber)
 		{
-			case ls:
-			, cd, mkdir, rmdir, mv, cp, rm:
+			case 0:			//ls
+			
+				printf("\n%s >>> ", path);
+				break;
+			case 1:			//cd
+			
+				printf("\n%s >>> ", path);
+				break;
+			case 2:			//mkdir
+				
+				break;
+			case 3:			//rmdir
+		
+				printf("\n%s >>> ", path);
+				break;
+			case 4:			//mv
+			
+				printf("\n%s >>> ", path);
+				break;
+			case 5:			//cp
+			
+				printf("\n%s >>> ", path);
+				break;
+			case 6:			//rm
+			
+				printf("\n%s >>> ", path);
+				break;
+			case 7:			//open
+			
+				printf("\n%s >>> ", path);
+				break;
+			
 		}
+		commandNumber = 16;
 	}
 	
-	
+	printf("\n");
 	return 0;
 }
 
 
-int quit(char command[32])
+int quit(char command[64])
 {
-	return ~strcmp("quit", command);
+	return (command[0] == 'q' && command[1] == 'u' && command[2] == 'i' && command[3] == 't') ? 1 : 0;
 }
 
 
-void extract_command(char subcommand[16], char command[32], char object[16])
+int extract_command(char subcommand[16], char command[64], char object1[16], char object2[16])
 {
-	int i;
-	int d;
-	while(command[i<=31 ? i : 0] = ' ' && i<=31)
+	int i = 0;
+	int d = 0;
+	int dwa = 0;
+	int commandNumber;
+	while(command[i<=63 ? i : 63] == ' ')
 		i++;
-	if(i == 32)
-	{
-		return;
-	}
-	else
-	{
-		 if(command[i] == 'l' && command[i+1 <= 31 ? i+1 : return ] == 's' && command[i+2 <= 31 ? i + 2 : return] == ' ')
-		 	{strcpy(subcommand, "ls"); d = i+3}
-		 
-		 if(command[i] == 'c' && command[i+1 <= 31 ? i+1 : return ] == 'd' && command[i+2 <= 31 ? i + 2 : return] == ' ')
-		 	{strcpy(subcommand, "cd");}
-		 
-		 if(command[i] == 'm' && command[i+1 <= 31 ? i+1 : return ] == 'k' && command[i+2 <= 31 ? i + 2 : return] == 'd' && command[i+3 <= 31 ? i+3 : return ] == 'i' && command[i+4 <= 31 ? i+4 : return ] == 'r' && command[i+5 <= 31 ? i + 5 : return] == ' ')
-		 	{strcpy(subcommand, "mkdir");}
-		 
-		 if(command[i] == 'r' && command[i+1 <= 31 ? i+1 : return ] == 'm' && command[i+2 <= 31 ? i + 2 : return] == 'd' && command[i+3 <= 31 ? i+3 : return ] == 'i' && command[i+4 <= 31 ? i+4 : return ] == 'r' && command[i+5 <= 31 ? i + 5 : return] == ' ')
-		 	{strcpy(subcommand, "rmdir");}
-		 
-		 if(command[i] == 'm' && command[i+1 <= 31 ? i+1 : return ] == 'v' && command[i+2 <= 31 ? i + 2 : return] == ' ')
-		 	{strcpy(subcommand, "mv");}
-		 
-		 if(command[i] == 'c' && command[i+1 <= 31 ? i+1 : return ] == 'p' && command[i+2 <= 31 ? i + 2 : return] == ' ')
-		 	{strcpy(subcommand, "cp");}
-		 
-		 if(command[i] == 'r' && command[i+1 <= 31 ? i+1 : return ] == 'm' && command[i+2 <= 31 ? i + 2 : return] == ' ')
-		 	{strcpy(subcommand, "rm");}
-		 
-		 if(command[i] == 'r' && command[i+1 <= 31 ? i+1 : return ] == 'm' && command[i+2 <= 31 ? i + 2 : return] == 'd' && command[i+3 <= 31 ? i+3 : return ] == 'i' && command[i+4 <= 31 ? i+4 : return ] == 'r' && command[i+5 <= 31 ? i + 5 : return] == ' ')
-		 	{strcpy(subcommand, "rmdir"); }
-	}	
-	while(command[i<=31 ? i : 0] = ' ' && i<=31)
-		i++;
-	if(i == 32)
-	{
-		return;
-	}
-	else
-	{
+	
+	if(i == 64)
+		return 16;
+	
+	if(command[i] == 'l' && command[i+1 <= 63 ? i+1 : 63 ] == 's' && command[i+2 <= 63 ? i + 2 : 63] == ' ')
+	{commandNumber = 0; strcpy(subcommand, "ls"); d = i+3;}
+
+	if(command[i] == 'c' && command[i+1 <= 63 ? i+1 : 63 ] == 'd' && command[i+2 <= 63 ? i + 2 : 63] == ' ')
+	{commandNumber = 1; strcpy(subcommand, "cd"); d = i+ 3;}
+
+	if(command[i] == 'm' && command[i+1 <= 63 ? i+1 : 63 ] == 'k' && command[i+2 <= 63 ? i + 2 : 63] == 'd' && command[i+3 <= 63 ? i+3 : 63 ] == 'i' && command[i+4 <= 63 ? i+4 : 63 ] == 'r' && command[i+5 <= 63 ? i + 5 : 63] == ' ')
+	{commandNumber = 2; strcpy(subcommand, "mkdir"); d = i+6;}
+
+	if(command[i] == 'r' && command[i+1 <= 63 ? i+1 : 63 ] == 'm' && command[i+2 <= 63 ? i + 2 : 63] == 'd' && command[i+3 <= 63 ? i+3 : 63 ] == 'i' && command[i+4 <= 63 ? i+4 : 63 ] == 'r' && command[i+5 <= 63 ? i + 5 : 63] == ' ')
+	{commandNumber = 3; strcpy(subcommand, "rmdir"); d = i+6;}
+
+	if(command[i] == 'm' && command[i+1 <= 63 ? i+1 : 63 ] == 'v' && command[i+2 <= 63 ? i + 2 : 63] == ' ')
+	{commandNumber = 4; strcpy(subcommand, "mv"); d = i+3; dwa = 1;}
+
+	if(command[i] == 'c' && command[i+1 <= 63 ? i+1 : 63 ] == 'p' && command[i+2 <= 63 ? i + 2 : 63] == ' ')
+	{commandNumber = 5; strcpy(subcommand, "cp"); d = i+3; dwa = 1;}
+
+	if(command[i] == 'r' && command[i+1 <= 63 ? i+1 : 63 ] == 'm' && command[i+2 <= 63 ? i + 2 : 63] == ' ')
+	{commandNumber = 6; strcpy(subcommand, "rm"); d = i+3;}
+
+	if(command[i] == 'o' && command[i+1 <= 63 ? i+1 : 63 ] == 'p' && command[i+2 <= 63 ? i + 2 : 63] == 'e' && command[i+3 <= 63 ? i+3 : 63 ] == 'n' && command[i+4 <= 63 ? i+4 : 63 ] == ' ')
+	{commandNumber = 7; strcpy(subcommand, "open"); d = i+5;}
+	 	
+	while(command[d<=63 ? d : 63] == ' ')
+		d++;
+	if(i == 64)
+		return 16;
+
+	int y;
+	for(y = d; y < 64 && command[y] != ' '; y++)
+		object1[y-d] = command[y];
+	
+	if(dwa == 1)
+		for(d = (y++);y < 64 && command[y] != ' '; y++)
+			object2[y - d] = command[y];
+			
+	return commandNumber;
 		
-	}
 		
 }

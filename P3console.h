@@ -1,6 +1,5 @@
 #include"P3FS.h"
 
-int quit(char command[32]);
+int quit(char command[64]);
 
-void extract_command(char subcommand[16], char command[32], char object[16]);
-
+int extract_command(char subcommand[16], char command[64], char object1[16], char object2[16]);

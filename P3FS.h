@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include"impl.h"
-#include<strings.h>
+#include<string.h>
 
 #define MAX_FILE_SIZE 30
 #define SECTOR_SIZE 512
