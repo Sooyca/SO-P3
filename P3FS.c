@@ -18,15 +18,24 @@ void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
 {
 	int y;
 	int i;
+	for(i= 0 ; i <SECTOR_SIZE; i++)
+		printf("aaa%c\n", buffer[0][i]);
 	int enum_files = 0;
 	int enum_chars = 0;
 	char t;
-	char tt[2];
-	if(buffer[0][16] == '*')
-		(dir->filesTypes[0]) = D;
-	if(buffer[0][16] == '/')
-		(dir->filesTypes[0]) = f;
-	for(i = 17; i<512; i++)					//first 16 chars are directory name
+	unsigned char tt[2];
+	for(y=0;y<16;y++)
+		(dir->name)[y] = buffer[0][y];
+	for(;y<32;y++)
+		(dir->parentName)[y-16] = buffer[0][y];
+	tt[0] = buffer[0][y];
+	tt[1] = buffer[0][y+1];
+	(dir->parentSector) = chars_to_int(tt);
+	if(buffer[0][34] == '*')
+		(dir->filesTypes[0]) = 'D';
+	if(buffer[0][34] == '#')
+		(dir->filesTypes[0]) = 'f';
+	for(i = 35; i<SECTOR_SIZE; i++)					//first 16 chars are directory name
 	{
 		if((t = buffer[0][i]) != '&')
 		{
@@ -43,14 +52,14 @@ void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
 			enum_chars = 0;
 			enum_files++;
 			if(buffer[0][i] == '*')
-				(dir->filesTypes[enum_files]) = D;
+				(dir->filesTypes[enum_files]) = 'D';
 			if(buffer[0][i] == '/')
-				(dir->filesTypes[enum_files]) = f;
+				(dir->filesTypes[enum_files]) = 'f';
 		}
 		
 	}	
 	for(y = 1; y<n; y++)
-		for(i = 0; i<512; i++)
+		for(i = 0; i<SECTOR_SIZE; i++)
 		{
 			if((t = buffer[y][i]) != '&')
 			{
@@ -67,10 +76,11 @@ void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
 				enum_chars = 0;
 				enum_files++;
 				if(buffer[y][i] == '*')
-					(dir->filesTypes[enum_files]) = D;
+					(dir->filesTypes[enum_files]) = 'D';
 				if(buffer[y][i] == '/')
-					(dir->filesTypes[enum_files]) = f;
+					(dir->filesTypes[enum_files]) = 'f';
 			}		
-		}					
+		}	
+	(dir->numberOfFiles)=enum_files;				
 }
 
