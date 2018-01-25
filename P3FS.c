@@ -11,7 +11,10 @@ int correctness(char *sector)
 
 int loadDir(char *sector)
 {
-	return sector[SECTOR_SIZE - 1];
+	char tt[2];
+	tt[0] = sector(SECTOR_SIZE - 2];
+	tt[1] = sector(SECTOR_SIZE - 1];
+	return chars_to_int(tt);
 }
 
 void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
@@ -53,7 +56,7 @@ void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
 			enum_files++;
 			if(buffer[0][i] == '*')
 				(dir->filesTypes[enum_files]) = 'D';
-			if(buffer[0][i] == '/')
+			if(buffer[0][i] == '#')
 				(dir->filesTypes[enum_files]) = 'f';
 		}
 		
@@ -77,7 +80,7 @@ void openDir(Directory* dir, char buffer[MAX_FILE_SIZE][SECTOR_SIZE], int n)
 				enum_files++;
 				if(buffer[y][i] == '*')
 					(dir->filesTypes[enum_files]) = 'D';
-				if(buffer[y][i] == '/')
+				if(buffer[y][i] == '#')
 					(dir->filesTypes[enum_files]) = 'f';
 			}		
 		}	
